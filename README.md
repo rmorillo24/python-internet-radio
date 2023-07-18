@@ -7,6 +7,8 @@ This is a command-line based Radio Stream Player that allows you to play audio s
 - Python 3
 - VLC media player
 - cvlc command line interface
+- The following Python libraries, which can be installed with `pip install -r requirements.txt`:
+  - `pyfiglet`
 
 ## How to use
 
