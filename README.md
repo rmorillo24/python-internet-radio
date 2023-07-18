@@ -1,4 +1,4 @@
-# Radio Stream Player
+# Terminal Internet Radio Player
 
 This is a command-line based Radio Stream Player that allows you to play audio streams from a list of internet radio stations.
 
