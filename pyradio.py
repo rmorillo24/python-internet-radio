@@ -1,15 +1,23 @@
+import argparse
 import subprocess
 import os
 import signal
 import csv
 from pyfiglet import Figlet
 
-# Load radio streams from a CSV file
+# Parse command-line arguments
+parser = argparse.ArgumentParser(description='Radio stream player.')
+parser.add_argument('--stations', type=str, default='radio_stations.csv',
+                    help='Path to the CSV file with the radio stations.')
+args = parser.parse_args()
+
+# Load radio streams from the CSV file specified in the command-line arguments
 radio_streams = []
-with open('radio_stations.csv', 'r') as file:
+with open(args.stations, 'r') as file:
     reader = csv.DictReader(file)
     for row in reader:
         radio_streams.append(row)
+
 
 # ASCII Art function
 def ascii_art(text):
@@ -17,7 +25,7 @@ def ascii_art(text):
     print(f.renderText(text))
 
 def print_stations():
-    print("\nSelect a radio stream:")
+    print("\nSelect a radio stream:\n")
     for i, stream in enumerate(radio_streams):
         if current_station is not None and i == current_station - 1:
             print(f"{i+1}. \033[1m{stream['name']}\033[0m")  # \033[1m is the ANSI code for bold, \033[0m resets to normal
@@ -36,7 +44,8 @@ while True:
     clear_screen()
     ascii_art("Stopped" if current_station == None else radio_streams[choice-1]['name'])  # Print the ASCII art of the station name
     print_stations()
-    print("'s' - Stop\t'n' - Next Station\t'x' - Exit")
+    print("----------------------------------------")
+    print("[s] - Stop\t[n] - Next Station\t[x] - Exit\n")
     command = input("Enter your command: ")
     if command.isdigit():
         choice = int(command)
